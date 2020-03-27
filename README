@@ -1,0 +1,39 @@
+Budau George, 322CC
+
+Grad de dificultate: avansat
+Timp alocat rezolvarii: ~50 ore.
+
+Proiectul implementeaza o simulare a unui magazin electronic. Un client poate sa adauge produse in cosul de cumparaturi sau in lista de dorinte, sau sa primeasca informatii despre un produs care l-ar putea interesa. De asemenea se pot adauga produse noi in magazin, se pot sterge produse sau se poate modifica pretul unui produs existent.
+
+	Test class
+Clasa care contine functia main() este Test.java. Este primit ca argument de intrare un folder care contine 3 fisiere din care se vor citi departamentele si produsele fiecarui departament (store.txt) din magazin, clientii care sunt in magazin si bugetul fiecaruia (customers.txt) si evenimentele care se produc in cadrul magazinului (events.txt). Pentru fiecare citire exista o functie aferenta (initializeStore, initializeCustomers, processEvents). De asemenea in aceasta clasa exista cate o functie aferenta fiecarui eveniment care poate avea loc in magazin (adaugare produs, modificare produs, stergere produs, adaugare la cosul de cumparaturi / stergere, adaugare la lista de dorinte / stergere, afisare lista de cumparaturi/ dorinte, afisare observatori si notificari).
+
+	Store class
+Aceasta clasa modeleaza magazinul online. Magazinul este caracterizat prin nume, departamente si clienti. Asupra acestei clase este aplicat sablonul Singleton pentru a restrictiona numarul de instantieri ale clasei la un singur obiect (intrucat este vorba de acelasi magazin). In aceasta clasa sunt implementate functii pentru a functionaliza anumite operatii precum: clientul intra/ iese din magazin, crearea unui ShoppingCart cu bugetul indicat care va fi utilizat de client, aflarea clientilor care se afla in magazin, aflarea departamentelor din magazin, adaugarea unui departament. 
+
+	Department class
+Aceasta clasa are ca si atribute numele departamentului, item-urile disponibile spre vanzare din departamentul respectiv, clientii care au cumparat cel putin un produs, clientii care isi doresc cel putin un produs apartinand departamentului (observatorii), ID-ul departamentului, dimensiunea departamentului. Clasa dispune de functii care faciliteaza operatii precum: clientul a cumparat cel putin un produs apartinand departamentului, aflarea clientilor care au cumparat produse din departament, adaugarea unui item nou in produsele departamentului, aflarea tuturor produselor din departament, adaugarea unui observator (un client este inregistrat ca un observator atunci cand acesta are in lista sa de dorinte cel putin un produs din departamentul respectiv), stergerea unui observator (cand clientul are lista de dorinte goala), notificarea observatorilor (se trimite o notificare tuturor observatorilor atunci cand in departamentul respectiv are loc un eveniment de adaugare, stergere sau modificare a unui produs), clasa folosind patternul Observer.
+
+	Customer class
+Aceasta clasa dispune de urmatoarele atribute: numele unui client, cosul de cumparaturi si lista de dorinte ale acestuia si o colectie de notificari. Aceasta clasa implementeaza functia de adaugare a unei notificari clientului si functia de afisare a notificarilor unui client.
+
+	Item class
+Un item este caracterizat printr-un nume, un ID unic si un pret. De asemenea fiecare item apartine unui departament. Clasa dispune de functii de genul getters and setters.
+
+	ItemList class
+Aceasta clasa este abstracta si implementeaza o lista dublu inlantuita si sortata, avand elemente de tip Item. Aceasta clasa contine o clasa interna statica Node, folosita pentru reprezentarea unui nod al listei, si o clasa interna ItemIterator care implementeaza interfata ListIterator. Clasa are un membru comparator pentru a adauga elemente in lista astfel incat aceasta sa ramana sortata. Sortarea item-urilor se face crescator dupa pret, iar daca preturile sunt egale atunci sortarea va fi in ordine alfabetica dupa nume. Lista dublu inlantuita dispune de un nod santinela pentru a usura iterarea prin aceasta. In aceasta clasa sunt implementate functiile corespunzatoare interfetei ListIterator (hasNext, next, hasPrevious, previous etc.) adaptate asupra programului existent, cat si functii precum: gasirea unui nod de la un index dat, aflarea indexului unui nod sau a unui element de tip item din lista, verificarea existentei unui nod/ item in lista, stergerea unui nod din lista (stergerea unui item), verificarea daca o lista este goala, calcularea totala a preturilor item-urilor adaugate in lista, afisarea listei de item-uri.
+
+	BookDepartment, MusicDepartment, SoftwareDepartment, VideoDepartment extends Department class 
+Toate aceste tipuri de departamente extind clasa abstracta Department. Se aplica Visitor pattern. Fiecare departament apeleaza functia accept, solicitand vizitarea instantei curente de catre un vizitator. Vizitatorul "viziteaza" metodele visit implementate in clasa ShoppingCart, fiecare dintre acestea aplicand un algoritm de modificare al preturilor item-urilor din lista de cumparaturi, dupa anumite criterii (criteriile specificate in enunt).
+
+	ShoppingCart class
+Aceasta clasa va mosteni clasa ItemList si va implementa interfata Visitor. Aceasta clasa implementeaza metodele ramase abstracte in clasa ItemList: add, addAll, care adauga elemente de tip Item in lista de cumparaturi atata timp cat bugetul clientului respectiv permite acest lucru. Clasa are ca si atribut bugetul initial al listei de cumparaturi si sunt implementate functiile getter and setter pentru acesta.
+	
+	WishList class
+La fel ca si ShoppingCart, WishList este o lista de elemente de tip Item - mosteneste clasa ItemList si contine produsele pe care un client le doreste dar nu le poate achizitiona momentan. Elementele in aceasta lista vor fi sortate in ordine alfabetica. Sunt implementate metodele ramase abstracte in clasa ItemList: add, addAll, care adauga elemente de tip Item in lista de dorinte daca aceasta nu le contine deja. Functia contine ca si atribute cel mai recent produs adaugat in lista si un obiect de tip Strategy ce se va folosi in cadrul operatiei executeStrategy care selecteaza un produs din lista, conform strategiei clientului, si il adauga in lista sa de cumparaturi, eliminandu-l din lista de dorinte. 
+
+	StrategyA, StrategyB, StrategyC
+Se utilizeaza Strategy pattern pentru a selecta un produs din lista de dorinte. Se poate selecta fie produsul cel mai ieftin - metoda implementata in clasa StrategyA, fie primul produs din lista - metoda implementata in clasa StrategyB, fie produsul adaugat cel mai recent in lista de dorinte - metoda implementata in clasa StrategyC. Acest sablon ii ofera clientului posibilitatea de a alege singur ce strategie foloseste pentru a selecta un produs. 
+
+	Notification class
+Fiecare client contine o colectie de notificari pe care le primeste atunci cand se modifica pretul unui anumit produs dintr-un departament care s-ar putea sa il intereseze: are cel putin un produs apartinand departamentului in lista sa de dorinte; atunci cand este adaugat un produs nou in departamentul respectiv sau cand este eliminat un produs. Clasa Notification contine ca si atribute urmatoarele: tipul notificarii (o enumerare, NotificationType, cu urmatoarele constante: ADD, REMOVE, MODIFY), ID-ul departamentului si ID-ul produsului. Atunci cand un client primeste o modificare el trebuie sa tina cont de ea: daca pretul produsului a fost modificat, se verifica in cosul de cumparaturi si in lista de dorinte daca exista produsul respectiv si se modifica pretul. Daca un produs este sters din magazin, acesta se va sterge si din listele clientului (daca exista). De asemenea bugetul clientului va fi modificat in cazul unor modificari asupra listei de cumparaturi.
