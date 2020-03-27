@@ -1,0 +1,9 @@
+494.89
+121.91
+73.18
+56.89
+121.91
+582.50
+[]
+[Iulia, Ion]
+[Ion, Marian, Iulia, Andrada]

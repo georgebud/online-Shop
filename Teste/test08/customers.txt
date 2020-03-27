@@ -1,0 +1,16 @@
+15
+Andrei;8812;C
+Andreea;7826;B
+Maria;5299;C
+Alexandra;5959;C
+Marius;7886;B
+Alexandru;9711;A
+Andrada;5314;B
+Mihai;8332;B
+Cristina;5618;A
+Ion;6867;B
+Marian;7387;C
+Ionica;8281;B
+Elena;7274;A
+George;7199;A
+Adelina;9626;C

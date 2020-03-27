@@ -1,0 +1,11 @@
+10
+Andrei;5992;B
+Andreea;7204;C
+Maria;6045;C
+Alexandra;9198;C
+Marius;7303;B
+Alexandru;8036;B
+Andrada;9291;C
+Mihai;9725;B
+Cristina;7422;C
+Ion;5709;A
